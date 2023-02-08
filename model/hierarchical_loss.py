@@ -52,9 +52,9 @@ class HierarchicalLossNetwork:
         lloss = 0
         for l in range(self.total_level):
             prediction = torch.argmax(nn.Softmax(dim=1)(predictions[l]), dim=1)
-            true_label = [torch.tensor(true_labels[l], dtype = torch.int64)]
-            prediction = torch.tensor(prediction).float()
-            t_label = torch.tensor([true_label[0]], dtype = torch.float)
+            true_label = [torch.tensor(true_labels[l], dtype = torch.int64).to(self.device)]
+            prediction = torch.tensor(prediction).float().to(self.device)
+            t_label = torch.tensor([true_label[0]], dtype = torch.float).to(self.device)
             lloss += nn.CrossEntropyLoss()(prediction, t_label)
 
         return self.alpha * lloss
@@ -69,8 +69,8 @@ class HierarchicalLossNetwork:
             current_lvl_pred = torch.argmax(nn.Softmax(dim=1)(predictions[l]), dim=1)
             prev_lvl_pred = torch.argmax(nn.Softmax(dim=1)(predictions[l-1]), dim=1)
             
-            current_lvl_pred  = torch.round(current_lvl_pred/10)
-            prev_lvl_pred = torch.round(prev_lvl_pred/10)
+            current_lvl_pred  = torch.round(current_lvl_pred/10).to(self.device)
+            prev_lvl_pred = torch.round(prev_lvl_pred/10).to(self.device)
 
             D_l = self.check_hierarchy(current_lvl_pred, prev_lvl_pred)
 
