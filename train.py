@@ -61,7 +61,7 @@ class Training:
         model.train()
         for i, sample in tqdm(enumerate(train_generator.dataset)):
 
-            batch_x, batch_y1, batch_y2 = sample['image'].to(device), sample['label_1'], sample['label_2']
+            batch_x, batch_y1, batch_y2 = sample['image'].to(device), sample['label_1'].to(device), sample['label_2'].to(device)
             optimizer.zero_grad()
 
             superclass_pred,subclass_pred = model(batch_x)
