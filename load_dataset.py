@@ -15,7 +15,7 @@ class LoadDataset(Dataset):
     '''Reads the given csv file and loads the data.
     '''
 
-    def __init__(self, csv_path, cifar_metafile, image_size=32, image_depth=3, return_label=True, transform=None):
+    def __init__(self, csv_path, cifar_metafile, image_size=200, image_depth=3, return_label=True, transform=None):
         '''Init param.
         '''
   
@@ -73,7 +73,7 @@ class LoadDataset(Dataset):
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         if self.image_size != 32:
-            cv2.resize(image, (self.image_size, self.image_size))
+            image = cv2.resize(image, (self.image_size, self.image_size))
 
 
         image = Image.fromarray(image)
