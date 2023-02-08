@@ -55,7 +55,7 @@ class HierarchicalLossNetwork:
             true_label = [torch.tensor(true_labels[l], dtype = torch.int64)]
             prediction = torch.tensor(prediction).float()
             t_label = torch.tensor([true_label[0]], dtype = torch.float)
-            lloss += nn.CrossEntropyLoss()(prediction, t_label)
+            lloss += nn.CrossEntropyLoss()(prediction, t_label).t0(device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu'))
 
         return self.alpha * lloss
 
