@@ -79,12 +79,13 @@ class Training:
             epoch_subclass_accuracy.append(calculate_accuracy(predictions=prediction[1].detach(), labels=batch_y2))
 
 
-       # epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
-       # epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
+
         
         train_epoch_loss.append(sum(epoch_loss)/(i+1))
         train_epoch_superclass_accuracy.append(sum(epoch_superclass_accuracy)/(i+1))
         train_epoch_subclass_accuracy.append(sum(epoch_subclass_accuracy)/(i+1))
+        epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
+        epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
 
 
 
@@ -118,11 +119,12 @@ class Training:
                 epoch_subclass_accuracy.append(calculate_accuracy(predictions=prediction[1].detach(), labels=batch_y2))
 
 
-       # epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
-       # epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
+      
         test_epoch_loss.append(sum(epoch_loss)/(j+1))
         test_epoch_superclass_accuracy.append(sum(epoch_superclass_accuracy)/(j+1))
         test_epoch_subclass_accuracy.append(sum(epoch_subclass_accuracy)/(j+1))
+        epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
+        epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
 
         #plot accuracy and loss graph
         plot_loss_acc(path=args.graphs_folder, num_epoch=epoch_idx, train_accuracies_superclass=train_epoch_superclass_accuracy,
