@@ -15,7 +15,7 @@ class LoadDataset(Dataset):
     '''Reads the given csv file and loads the data.
     '''
 
-    def __init__(self, csv_path, cifar_metafile, image_size=100, image_depth=3, return_label=True, transform=None):
+    def __init__(self, csv_path, cifar_metafile, image_size=10, image_depth=3, return_label=True, transform=None):
         '''Init param.
         '''
   
