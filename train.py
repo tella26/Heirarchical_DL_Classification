@@ -79,8 +79,8 @@ class Training:
             epoch_subclass_accuracy.append(calculate_accuracy(predictions=prediction[1].detach(), labels=batch_y2))
 
 
-        epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
-        epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
+       # epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
+       # epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
         
         train_epoch_loss.append(sum(epoch_loss)/(i+1))
         train_epoch_superclass_accuracy.append(sum(epoch_superclass_accuracy)/(i+1))
@@ -118,8 +118,8 @@ class Training:
                 epoch_subclass_accuracy.append(calculate_accuracy(predictions=prediction[1].detach(), labels=batch_y2))
 
 
-        epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
-        epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
+       # epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
+       # epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
         test_epoch_loss.append(sum(epoch_loss)/(j+1))
         test_epoch_superclass_accuracy.append(sum(epoch_superclass_accuracy)/(j+1))
         test_epoch_subclass_accuracy.append(sum(epoch_subclass_accuracy)/(j+1))
