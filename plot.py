@@ -23,6 +23,13 @@ def plot_loss_acc(path, num_epoch, train_accuracies_superclass, train_accuracies
     test_superclass_accuracy_df = pd.DataFrame({"Epochs":epochs, "Accuracy":test_accuracies_superclass, "Mode":['test']*(num_epoch+1)})
     test_subclass_accuracy_df = pd.DataFrame({"Epochs":epochs, "Accuracy":test_accuracies_subclass, "Mode":['test']*(num_epoch+1)})
 
+    #train_superclass_accuracy_df.loc[:,~train_superclass_accuracy_df.columns.duplicated(keep='first')]
+    train_superclass_accuracy_df = train_superclass_accuracy_df[~train_superclass_accuracy_df.index.duplicated(keep='first')]
+    train_subclass_accuracy_df = train_subclass_accuracy_df[~train_subclass_accuracy_df.index.duplicated(keep='first')]
+    test_superclass_accuracy_df = test_superclass_accuracy_df[~test_superclass_accuracy_df.index.duplicated(keep='first')]
+    test_subclass_accuracy_df =  test_subclass_accuracy_df[~test_subclass_accuracy_df.index.duplicated(keep='first')]
+    
+    
     data_superclass = pd.concat([train_superclass_accuracy_df, test_superclass_accuracy_df])
     data_subclass = pd.concat([train_subclass_accuracy_df, test_subclass_accuracy_df])
 
@@ -40,6 +47,9 @@ def plot_loss_acc(path, num_epoch, train_accuracies_superclass, train_accuracies
 
     train_loss_df = pd.DataFrame({"Epochs":epochs, "Loss":train_losses, "Mode":['train']*(num_epoch+1)})
     test_loss_df = pd.DataFrame({"Epochs":epochs, "Loss":test_losses, "Mode":['test']*(num_epoch+1)})
+    
+    train_loss_df =  train_loss_df[~train_loss_df.index.duplicated(keep='first')]
+    test_loss_df =  test_loss_df[~test_loss_df.index.duplicated(keep='first')]
 
     data = pd.concat([train_loss_df, test_loss_df])
 
