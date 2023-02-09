@@ -79,6 +79,9 @@ class Training:
             epoch_subclass_accuracy.append(calculate_accuracy(predictions=prediction[1].detach(), labels=batch_y2))
 
 
+        epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
+        epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
+        
         train_epoch_loss.append(sum(epoch_loss)/(i+1))
         train_epoch_superclass_accuracy.append(sum(epoch_superclass_accuracy)/(i+1))
         train_epoch_subclass_accuracy.append(sum(epoch_subclass_accuracy)/(i+1))
@@ -98,10 +101,10 @@ class Training:
 
         model.eval()
         with torch.set_grad_enabled(False):
-            for j, sample in tqdm(enumerate(test_generator)):
+            for j, sample in tqdm(enumerate(test_generator.dataset)):
 
 
-                batch_x, batch_y1, batch_y2 = sample['image'].to(device), sample['label_1'].to(device), sample['label_2'].to(device)
+                batch_x, batch_y1, batch_y2 = sample['image'].to(device), torch.tensor(sample['label_1']).to(device), torch.tensor(sample['label_2']).to(device)
 
                 superclass_pred,subclass_pred = model(batch_x)
                 prediction = [superclass_pred,subclass_pred]
@@ -111,10 +114,12 @@ class Training:
                 total_loss = lloss + dloss
 
                 epoch_loss.append(total_loss.item())
-                epoch_superclass_accuracy.append(calculate_accuracy(predictions=prediction[0], labels=batch_y1))
-                epoch_subclass_accuracy.append(calculate_accuracy(predictions=prediction[1], labels=batch_y2))
+                epoch_superclass_accuracy.append(calculate_accuracy(predictions=prediction[0].detach(), labels=batch_y1))
+                epoch_subclass_accuracy.append(calculate_accuracy(predictions=prediction[1].detach(), labels=batch_y2))
 
 
+        epoch_superclass_accuracy = epoch_superclass_accuracy[0].detach().cpu().numpy()
+        epoch_subclass_accuracy = epoch_subclass_accuracy[0].detach().cpu().numpy()
         test_epoch_loss.append(sum(epoch_loss)/(j+1))
         test_epoch_superclass_accuracy.append(sum(epoch_superclass_accuracy)/(j+1))
         test_epoch_subclass_accuracy.append(sum(epoch_subclass_accuracy)/(j+1))

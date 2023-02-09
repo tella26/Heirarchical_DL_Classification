@@ -57,8 +57,7 @@ def calculate_accuracy(predictions, labels):
     #correct_pred = torch.sum(predicted == labels)
     #accuracy = correct_pred*(100/labels)
     #return accuracy.item()
-    k = 0.0001
-    error_rate = abs((predicted - labels))*(100/(labels+k))
+    error_rate = abs((predicted - labels))*(100/(predicted))
     accuracy = abs(100 - error_rate)
     
     return accuracy
